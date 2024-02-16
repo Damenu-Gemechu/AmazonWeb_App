@@ -156,8 +156,9 @@
 .lower__container{
     background-color: #232f3e;
     color: white;
-    font-family:Lucida Sans;
-    font-weight: 400;
+    /* font-family:Georgia, 'Times New Roman', Times, serif; */
+    font-weight: 900;
+    font-size: 12px;
 }
 .lower__container ul{
     display: flex;

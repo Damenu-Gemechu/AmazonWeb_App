@@ -8,14 +8,15 @@ import { useContext } from "react";
 import { DataContext } from "../DataProvider/DataProvider";
 import amazonLogo from '../../assets/images/img1.png'
 import { MdLocationOn } from "react-icons/md";
+import {auth} from '../../Utility/firebase'
 
 const Header = () => {
 
-  const [{basket}, dispacth] = useContext(DataContext)
+  const [{user,basket}, dispatch] = useContext(DataContext)
 
   const totalItem=basket?.reduce((amount,item)=>{
     return item.amount+amount
-  },0)
+  },0);
 
   return (
     <section className={classes.fixed}>
@@ -41,10 +42,10 @@ const Header = () => {
             {/* {Search} */}
             <select name="" id="">
               <option value="">All</option>
-              <option value="">Electonics</option>
+              <option value="">Electronics</option>
               <option value="">Men's Clothes</option>
               <option value="">Women's Clothes</option>
-              <option value="">Lewelery</option>
+              <option value="">jewlery</option>
             </select>
             <input type="text" name="" id="" placeholder="search product" />
             <FaSearch />
@@ -61,9 +62,23 @@ const Header = () => {
               </select>
             </div>
             {/* {three components} */}
-            <Link to="/auth">
-              <p>Sign</p>
-              <span>Account & Lists</span>
+            <Link to={!user && "/auth"}>
+              <div>
+                {
+                  user ?(
+                    <>
+                  <p>Hello {user?.email?.split("@")[0]}</p>
+                  <span onClick={()=>auth.signOut()}>
+                    Sign Out</span>
+                  </>
+                  ):(
+                    <>
+                    <p>Hello, Sign In</p>
+                    <span>Account & Lists</span>
+                    </>
+                  )
+                }
+              </div>
             </Link>
             {/* {order} */}
             <Link to="/orders">
